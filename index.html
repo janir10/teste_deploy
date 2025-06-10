@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaração de Amor</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b9d, #ffa726, #42a5f5);
+            background-size: 400% 400%;
+            animation: gradientAnimation 8s ease infinite;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            transform: scale(0);
+            animation: aparecer 1s ease forwards;
+        }
+
+        @keyframes aparecer {
+            to { transform: scale(1); }
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nome-input {
+            padding: 15px;
+            font-size: 1.2em;
+            border: 3px solid #ff6b9d;
+            border-radius: 10px;
+            margin: 20px 0;
+            width: 80%;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .nome-input:focus {
+            border-color: #e91e63;
+            box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        .declaracao {
+            font-size: 1.3em;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .coracao {
+            font-size: 2em;
+            color: #e91e63;
+            display: inline-block;
+            animation: batimento 1.5s ease-in-out infinite;
+            margin: 0 10px;
+        }
+
+        @keyframes batimento {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .estrelas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .estrela {
+            position: absolute;
+            color: #fff;
+            font-size: 1.5em;
+            animation: brilhar 3s ease-in-out infinite;
+        }
+
+        @keyframes brilhar {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .oculto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="estrelas" id="estrelas"></div>
+    
+    <div class="container">
+        <div id="inicio">
+            <h1>💕 Declaração de Amor 💕</h1>
+            <p>Digite o nome da pessoa especial:</p>
+            <input type="text" id="nomeInput" class="nome-input" placeholder="Nome da pessoa amada..." maxlength="20">
+            <br>
+            <button class="btn" onclick="declararAmor()">💖 Declarar Amor 💖</button>
+        </div>
+
+        <div id="declaracao" class="oculto">
+            <h1>Para você, <span id="nomeAmado"></span></h1>
+            <div class="declaracao">
+                <p>
+                    <span class="coracao">💖</span>
+                    Você é a luz que ilumina meus dias e a estrela que guia meus sonhos.
+                    <span class="coracao">💖</span>
+                </p>
+                <p>
+                    Cada momento ao seu lado é um presente precioso que guardo no meu coração.
+                </p>
+                <p>
+                    <span class="coracao">❤️</span>
+                    EU TE AMO de todo o meu coração!
+                    <span class="coracao">❤️</span>
+                </p>
+                <p>
+                    Você torna minha vida mais bonita e cheia de significado.
+                </p>
+            </div>
+            <button class="btn" onclick="reiniciar()">💕 Nova Declaração 💕</button>
+        </div>
+    </div>
+
+    <script>
+        // Criar estrelas de fundo
+        function criarEstrelas() {
+            const container = document.getElementById('estrelas');
+            const simbolos = ['✨', '⭐', '💫', '🌟'];
+            
+            for (let i = 0; i < 15; i++) {
+                const estrela = document.createElement('div');
+                estrela.className = 'estrela';
+                estrela.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
+                estrela.style.left = Math.random() * 100 + '%';
+                estrela.style.top = Math.random() * 100 + '%';
+                estrela.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(estrela);
+            }
+        }
+
+        function declararAmor() {
+            const nome = document.getElementById('nomeInput').value.trim();
+            
+            if (nome === '') {
+                alert('Por favor, digite o nome da pessoa especial! 💕');
+                return;
+            }
+
+            // Adicionar efeitos visuais
+            document.body.style.animation = 'none';
+            document.body.style.background = 'linear-gradient(135deg, #ff1744, #e91e63, #9c27b0, #673ab7)';
+            document.body.style.backgroundSize = '400% 400%';
+            document.body.style.animation = 'gradientAnimation 6s ease infinite';
+
+            // Mostrar declaração
+            document.getElementById('nomeAmado').textContent = nome;
+            document.getElementById('inicio').classList.add('oculto');
+            document.getElementById('declaracao').classList.remove('oculto');
+
+            // Adicionar mais estrelas
+            criarMaisEstrelas();
+        }
+
+        function criarMaisEstrelas() {
+            const container = document.getElementById('estrelas');
+            const simbolos = ['💖', '💕', '💝', '💗', '💘'];
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const estrela = document.createElement('div');
+                    estrela.className = 'estrela';
+                    estrela.innerHTML = simbolos[Math.floor(Math.random() * simbolos.length)];
+                    estrela.style.left = Math.random() * 100 + '%';
+                    estrela.style.top = Math.random() * 100 + '%';
+                    estrela.style.animationDelay = '0s';
+                    container.appendChild(estrela);
+                }, i * 200);
+            }
+        }
+
+        function reiniciar() {
+            document.getElementById('inicio').classList.remove('oculto');
+            document.getElementById('declaracao').classList.add('oculto');
+            document.getElementById('nomeInput').value = '';
+            document.getElementById('nomeInput').focus();
+            
+            // Limpar estrelas extras
+            const estrelas = document.getElementById('estrelas');
+            estrelas.innerHTML = '';
+            criarEstrelas();
+        }
+
+        // Permitir envio com Enter
+        document.getElementById('nomeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                declararAmor();
+            }
+        });
+
+        // Inicializar
+        window.onload = function() {
+            criarEstrelas();
+            document.getElementById('nomeInput').focus();
+        };
+    </script>
+</body>
+</html>
